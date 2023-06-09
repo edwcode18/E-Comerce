@@ -1,5 +1,7 @@
 import React from 'react'
 import logo from '../../../../../public/images/logo.png';
+// import { Heart, User } from 'feather-icons-react';
+import FeatherIcon from 'feather-icons-react';
 
 
 export const Header = () => {
@@ -51,14 +53,14 @@ return (
                 <li>
                     <a className="rounded-circle bg-light p-2 mx-1">
                         <svg width="24" height="24" viewBox="0 0 24 24">
-                            <use ></use>
+                            <FeatherIcon icon="heart"/>
                         </svg>
                     </a>
                 </li>
                 <li>
                     <a  className="rounded-circle bg-light p-2 mx-1">
                         <svg width="24" height="24" viewBox="0 0 24 24">
-                            <use></use>
+                            <FeatherIcon icon="user"/>
                         </svg>
                     </a>
                 </li>
@@ -66,7 +68,7 @@ return (
                     <a   className="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                         <svg width="24" height="24" viewBox="0 0 24 24">
-                            <use></use>
+                            <FeatherIcon icon="shopping-cart"/>
                         </svg>
                     </a>
                 </li>
@@ -74,7 +76,7 @@ return (
                     <a   className="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
                         <svg width="24" height="24" viewBox="0 0 24 24">
-                            <use></use>
+                            <FeatherIcon icon="search"/>
                         </svg>
                     </a>
                 </li>
