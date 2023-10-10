@@ -1,2 +1,2 @@
-export * from './Header'
-export * from './HeaderNav'
+export * from './Header.jsx'
+export * from './HeaderNav.jsx'

@@ -1,2 +1,2 @@
-export * from './Sections';
-export * from './SectionsHomeImg';
+export * from './Sections.jsx';
+export * from './SectionsHomeImg.jsx';

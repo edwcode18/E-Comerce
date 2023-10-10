@@ -1,2 +1,2 @@
-export * from './header'
-export * from './section'
+export * from './header/index.js'
+export * from './section/index.js'
