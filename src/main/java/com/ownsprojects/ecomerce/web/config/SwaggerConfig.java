@@ -32,7 +32,7 @@ public class SwaggerConfig {
     /**
      * Create an ApiInfo bean for API documentation metadata.
      *
-     * @return
+     * @return The ApiInfo bean configuration
      */
     @Bean
     public ApiInfo apiInfo() {
