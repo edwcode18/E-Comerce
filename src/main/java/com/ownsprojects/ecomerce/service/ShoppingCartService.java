@@ -1,5 +1,6 @@
-package com.ownsprojects.ecomerce.persistence.entity;
+package com.ownsprojects.ecomerce.service;
 
+import com.ownsprojects.ecomerce.persistence.entity.ShoppingCartEntity;
 import com.ownsprojects.ecomerce.persistence.repository.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

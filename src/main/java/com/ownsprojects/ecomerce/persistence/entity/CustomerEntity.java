@@ -2,6 +2,7 @@ package com.ownsprojects.ecomerce.persistence.entity;
 
 import com.ownsprojects.ecomerce.persistence.audit.AuditableEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,10 +11,11 @@ import javax.validation.constraints.*;
 /**
  * Represents a customer entity in the system.
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
 @Entity
 @Table(name = "customer")
-@Data
-@NoArgsConstructor
 public class CustomerEntity extends AuditableEntity {
     /**
      * Unique identifier for the customer.
@@ -48,14 +50,14 @@ public class CustomerEntity extends AuditableEntity {
     /**
      * The phone number of the customer.
      */
-    @Size(max = 15, message = "The phone number can be 15 numbers")
+    @Size(max = 15, message = "The phone number can only be 15 numbers")
     @Column(name = "phone_number", length = 15)
     private String phoneNumber;
 
     /**
      * The password of the customer.
      */
-    @Size(max = 15, message = "The password can be 50 characters")
+    @Size(max = 15, message = "The password can only be 50 characters")
     @NotBlank(message = "The password cannot be blank")
     @Column(length = 50)
     private String password;
@@ -63,7 +65,7 @@ public class CustomerEntity extends AuditableEntity {
     /**
      * The shipping address of the customer.
      */
-    @Size(max = 15, message = "The shipping address can be 60 characters")
+    @Size(max = 15, message = "The shipping address can only be 60 characters")
     @Column(name = "shiping_address", length = 60)
     private String shipingAddress;
 }
