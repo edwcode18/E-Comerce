@@ -29,6 +29,7 @@ public class CustomerEntity extends AuditableEntity {
      * The first name of the customer.
      */
     @NotBlank(message = "The first name cannot be blank")
+    @Size(max = 20, message = "The first name can only be 20 characters")
     @Column(name = "first_name", nullable = false, length = 20)
     private String firstName;
 
@@ -36,6 +37,7 @@ public class CustomerEntity extends AuditableEntity {
      * The last name of the customer.
      */
     @NotBlank(message = "The last name cannot be blank")
+    @Size(max = 20, message = "The last name can only be 20 characters")
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
 
@@ -44,6 +46,7 @@ public class CustomerEntity extends AuditableEntity {
      */
     @Email(message = "The email is not valid")
     @NotBlank(message = "The email cannot be blank")
+    @Size(max = 60, message = "The email can only be 60 characters")
     @Column(nullable = false, length = 60, unique = true)
     private String email;
 
@@ -57,7 +60,7 @@ public class CustomerEntity extends AuditableEntity {
     /**
      * The password of the customer.
      */
-    @Size(max = 15, message = "The password can only be 50 characters")
+    @Size(max = 50, message = "The password can only be 50 characters")
     @NotBlank(message = "The password cannot be blank")
     @Column(length = 50)
     private String password;
@@ -65,7 +68,7 @@ public class CustomerEntity extends AuditableEntity {
     /**
      * The shipping address of the customer.
      */
-    @Size(max = 15, message = "The shipping address can only be 60 characters")
+    @Size(max = 60, message = "The shipping address can only be 60 characters")
     @Column(name = "shiping_address", length = 60)
     private String shipingAddress;
 }

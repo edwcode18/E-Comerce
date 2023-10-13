@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 /**
@@ -37,7 +38,8 @@ public class OrderEntity extends AuditableEntity {
     /**
      * The status of the order.
      */
-    @NotBlank(message = "The status cannot be blank and can only be 15 characters")
+    @NotBlank(message = "The status cannot be blank")
+    @Size(max = 15, message = "The status can only be 15 characters")
     @Column(length = 15, nullable = false)
     private String status;
 

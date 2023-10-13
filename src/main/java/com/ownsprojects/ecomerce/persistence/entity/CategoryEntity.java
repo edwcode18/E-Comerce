@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * Represents a category entity in the system.
@@ -28,7 +29,8 @@ public class CategoryEntity extends AuditableEntity {
     /**
      * The name of the category.
      */
-    @NotBlank(message = "The name cannot be blank and can only be 50 characters")
+    @NotBlank(message = "The name cannot be blank")
+    @Size(max = 50, message = "The name can only be 50 characters")
     @Column(nullable = false, length = 50)
     private String name;
 
