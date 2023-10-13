@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for managing products.
@@ -44,8 +45,8 @@ public class ProductService {
      * @param id The ID of the product to retrieve.
      * @return An Optional containing the product if found, or an empty Optional if not found.
      */
-    public ProductEntity getProductById(Long id) {
-        return productRepository.findById(id).orElse(null);
+    public Optional<ProductEntity> getProductById(Long id) {
+        return productRepository.findById(id);
     }
 
     /**

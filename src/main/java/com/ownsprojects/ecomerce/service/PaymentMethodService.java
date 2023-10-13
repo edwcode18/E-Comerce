@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service to managing payment methods.
@@ -44,8 +45,8 @@ public class PaymentMethodService {
      * @param id The ID of the payment method to retrieve.
      * @return An Optional containing the payment method if found, or an empty Optional if not found.
      */
-    public PaymentMethodEntity getPaymentMethodById(Long id) {
-        return paymentMethodRepository.findById(id).orElse(null);
+    public Optional<PaymentMethodEntity> getPaymentMethodById(Long id) {
+        return paymentMethodRepository.findById(id);
     }
 
     /**

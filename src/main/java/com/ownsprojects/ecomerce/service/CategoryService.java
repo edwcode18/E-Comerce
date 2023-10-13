@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for managing categories.
@@ -44,8 +45,8 @@ public class CategoryService {
      * @param id The ID of the category to retrieve.
      * @return An Optional containing the category if found, or an empty Optional if not found.
      */
-    public CategoryEntity getCategoryById(Long id) {
-        return categoryRepository.findById(id).orElse(null);
+    public Optional<CategoryEntity> getCategoryById(Long id) {
+        return categoryRepository.findById(id);
     }
 
     /**

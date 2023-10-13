@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for managing discounts.
@@ -44,8 +45,8 @@ public class DiscountService {
      * @param id The ID of the discount to retrieve.
      * @return An Optional containing the discount if found, or an empty Optional if not found.
      */
-    public DiscountEntity getDiscountById(Long id) {
-        return discountRepository.findById(id).orElse(null);
+    public Optional<DiscountEntity> getDiscountById(Long id) {
+        return discountRepository.findById(id);
     }
 
     /**

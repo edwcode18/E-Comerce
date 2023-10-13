@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for managing order services.
@@ -44,8 +45,8 @@ public class OrderService {
      * @param id The ID of the order to retrieve.
      * @return An Optional containing the order if found, or an empty Optional if not found.
      */
-    public OrderEntity getOrderById(Long id) {
-        return orderRepository.findById(id).orElse(null);
+    public Optional<OrderEntity> getOrderById(Long id) {
+        return orderRepository.findById(id);
     }
 
     /**

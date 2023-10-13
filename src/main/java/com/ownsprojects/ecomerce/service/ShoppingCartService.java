@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for managing the shopping carts.
@@ -44,8 +45,8 @@ public class ShoppingCartService {
      * @param id The ID of the shopping cart to retrieve.
      * @return An Optional containing the shopping cart if found, or an empty Optional if not found.
      */
-    public ShoppingCartEntity getShoppingCartById(Long id) {
-        return shoppingCartRepository.findById(id).orElse(null);
+    public Optional<ShoppingCartEntity> getShoppingCartById(Long id) {
+        return shoppingCartRepository.findById(id);
     }
 
     /**

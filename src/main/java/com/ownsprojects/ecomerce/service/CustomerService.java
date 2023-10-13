@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for managing customers.
@@ -44,8 +45,8 @@ public class CustomerService {
      * @param id The ID of the customer to retrieve.
      * @return An Optional containing the customer if found, or an empty Optional if not found.
      */
-    public CustomerEntity getCustomerById(Long id) {
-        return customerRepository.findById(id).orElse(null);
+    public Optional<CustomerEntity> getCustomerById(Long id) {
+        return customerRepository.findById(id);
     }
 
     /**
