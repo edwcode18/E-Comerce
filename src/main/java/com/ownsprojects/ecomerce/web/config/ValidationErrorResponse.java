@@ -7,19 +7,19 @@ import java.util.stream.Collectors;
 
 import org.springframework.validation.FieldError;
 
-// ...
-
+/**
+ * Represents a response for validation errors.
+ */
 public class ValidationErrorResponse {
     private List<String> errors;
 
     public ValidationErrorResponse(List<ObjectError> errors) {
-        this.errors = errors
-                .stream()
-                .map(this::getErrorMessage) // Cambio en esta línea
+        this.errors = errors.stream()
+                .map(this::getErrorMessageFromError)
                 .collect(Collectors.toList());
     }
 
-    private String getErrorMessage(ObjectError error) {
+    private String getErrorMessageFromError(ObjectError error) {
         if (error instanceof FieldError) {
             return ((FieldError) error).getDefaultMessage();
         }
