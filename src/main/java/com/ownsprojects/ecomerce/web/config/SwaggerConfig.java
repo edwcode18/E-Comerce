@@ -9,8 +9,16 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+/**
+ * Configuration class for Swagger documentation.
+ */
 @Configuration
 public class SwaggerConfig {
+    /**
+     * Create a Docket bean for Swagger API documentation.
+     *
+     * @return The Docket bean configuration.
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -21,7 +29,13 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo());
     }
 
-    private ApiInfo apiInfo() {
+    /**
+     * Create an ApiInfo bean for API documentation metadata.
+     *
+     * @return
+     */
+    @Bean
+    public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("API de Comercio Electrónico")
                 .description("API para gestionar clientes y otros recursos")
