@@ -1,6 +1,7 @@
 package com.ownsprojects.ecomerce.web.controller;
 
 import com.ownsprojects.ecomerce.persistence.entity.CartDetailEntity;
+import com.ownsprojects.ecomerce.persistence.entity.CustomerEntity;
 import com.ownsprojects.ecomerce.service.CartDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -32,31 +34,27 @@ public class CartDetailController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CartDetailEntity>> getAllCartDetails(){
+    public ResponseEntity<List<CartDetailEntity>> getAllCartDetails() {
         try {
             return new ResponseEntity<>(cartDetailService.getAllCartDetails(), HttpStatus.FOUND);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CartDetailEntity> getCartDetail(@PathVariable("id") Long id){
-        try {
-            return new ResponseEntity<>(cartDetailService.getCartDetailById(id), HttpStatus.FOUND);
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<CartDetailEntity> getCartDetail(@PathVariable("id") Long id) {
+        Optional<CartDetailEntity> cartDetail = cartDetailService.getCartDetailById(id);
+        return cartDetail.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCartDetail(@PathVariable("id") Long id){
+    public ResponseEntity<String> deleteCartDetail(@PathVariable("id") Long id) {
         try {
             cartDetailService.deleteCartDetail(id);
             return ResponseEntity.noContent().build();
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Error durante la eliminación: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error durante la eliminación: " + e.getMessage());
         }

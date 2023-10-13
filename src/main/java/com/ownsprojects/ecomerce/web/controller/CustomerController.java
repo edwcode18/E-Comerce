@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Validated
@@ -82,8 +83,8 @@ public class CustomerController {
             @ApiResponse(code = 400, message = "Bad request")
     })
     public ResponseEntity<CustomerEntity> getCustomer(@PathVariable("id") Long id) {
-        CustomerEntity customer = customerService.getCustomerById(id);
-        return ResponseEntity.status(customer != null ? HttpStatus.OK : HttpStatus.NOT_FOUND).body(customer);
+        Optional<CustomerEntity> customer = customerService.getCustomerById(id);
+        return customer.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     /**
