@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service for managing customers.
+ */
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
@@ -16,18 +19,40 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
+    /**
+     * Save a customer.
+     *
+     * @param customer The customer to save.
+     * @return The saved customer.
+     */
     public CustomerEntity saveCustomer(CustomerEntity customer) {
         return customerRepository.save(customer);
     }
 
+    /**
+     * Get a list of all customers.
+     *
+     * @return A list of all customers.
+     */
     public List<CustomerEntity> getAllCustomers() {
         return customerRepository.findAll();
     }
 
+    /**
+     * Get a customer by its ID.
+     *
+     * @param id The ID of the customer to retrieve.
+     * @return An Optional containing the customer if found, or an empty Optional if not found.
+     */
     public CustomerEntity getCustomerById(Long id) {
         return customerRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Delete a customer by its ID.
+     *
+     * @param id The ID of the customer to delete.
+     */
     public void deleteCustomer(Long id) {
         customerRepository.deleteById(id);
     }

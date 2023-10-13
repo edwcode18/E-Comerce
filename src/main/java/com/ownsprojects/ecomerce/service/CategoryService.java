@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service for managing categories.
+ */
 @Service
 public class CategoryService {
     private final CategoryRepository categoryRepository;
@@ -16,19 +19,41 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public CategoryEntity saveCategory(CategoryEntity category){
+    /**
+     * Save a category.
+     *
+     * @param category The category to save.
+     * @return The saved category.
+     */
+    public CategoryEntity saveCategory(CategoryEntity category) {
         return categoryRepository.save(category);
     }
 
-    public List<CategoryEntity> getAllCategories(){
+    /**
+     * Get a list of all categories.
+     *
+     * @return A list of all categories.
+     */
+    public List<CategoryEntity> getAllCategories() {
         return categoryRepository.findAll();
     }
 
-    public CategoryEntity getCategoryById(Long id){
+    /**
+     * Get a category by its ID.
+     *
+     * @param id The ID of the category to retrieve.
+     * @return An Optional containing the category if found, or an empty Optional if not found.
+     */
+    public CategoryEntity getCategoryById(Long id) {
         return categoryRepository.findById(id).orElse(null);
     }
 
-    public void deleteCategory(Long id){
+    /**
+     * Delete a category by its ID.
+     *
+     * @param id The ID of the category to delete.
+     */
+    public void deleteCategory(Long id) {
         categoryRepository.deleteById(id);
     }
 }

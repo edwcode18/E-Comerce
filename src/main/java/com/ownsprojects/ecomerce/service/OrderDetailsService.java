@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service to managing order details.
+ */
 @Service
 public class OrderDetailsService {
     private final OrderDetailsRepository orderDetailsRepository;
@@ -16,18 +19,40 @@ public class OrderDetailsService {
         this.orderDetailsRepository = orderDetailsRepository;
     }
 
+    /**
+     * Save a order detail.
+     *
+     * @param orderDetails The order detail to save.
+     * @return The saved order detail.
+     */
     public OrderDetailsEntity saveOrderDetail(OrderDetailsEntity orderDetails) {
         return orderDetailsRepository.save(orderDetails);
     }
 
-    public List<OrderDetailsEntity> getAllOrderDetails(Long id) {
+    /**
+     * Get a list of all order details.
+     *
+     * @return A list of all order details.
+     */
+    public List<OrderDetailsEntity> getAllOrderDetails() {
         return orderDetailsRepository.findAll();
     }
 
+    /**
+     * Get a order detail by its ID.
+     *
+     * @param id The ID of the order detail to retrieve.
+     * @return An Optional containing the order detail if found, or an empty Optional if not found.
+     */
     public OrderDetailsEntity getOrderDatailById(Long id) {
         return orderDetailsRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Delete a order detail by its ID.
+     *
+     * @param id The ID of the order detail to delete.
+     */
     public void deleteOrderDetail(Long id) {
         orderDetailsRepository.deleteById(id);
     }
