@@ -1,5 +1,6 @@
 package com.ownsprojects.ecomerce.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ownsprojects.ecomerce.persistence.audit.AuditableEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 /**
  * Represents a customer entity in the system.
@@ -23,6 +26,7 @@ public class CustomerEntity extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_customer", nullable = false)
+    @JsonIgnore
     private Long idCustomer;
 
     /**
@@ -60,10 +64,19 @@ public class CustomerEntity extends AuditableEntity {
     /**
      * The password of the customer.
      */
-    @Size(max = 50, message = "The password can only be 50 characters")
-    @NotBlank(message = "The password cannot be blank")
-    @Column(length = 50)
+    @Size(max = 100, message = "The password can only be 50 characters")
+    @Column(length = 100)
+    @Transient
+    @JsonIgnore
     private String password;
+
+    @Transient
+    @JsonIgnore
+    private String salt;
+
+    @Column(columnDefinition = "TEXT")
+    @JsonIgnore
+    private String passwordHash;
 
     /**
      * The shipping address of the customer.
@@ -71,4 +84,19 @@ public class CustomerEntity extends AuditableEntity {
     @Size(max = 60, message = "The shipping address can only be 60 characters")
     @Column(name = "shiping_address", length = 60)
     private String shipingAddress;
+
+    public void setPassword(String password) {
+        // Genera una sal aleatoria
+        this.salt = BCrypt.gensalt();
+        // Combina la sal con la contraseña y almacena el hash
+        this.passwordHash = BCrypt.hashpw(this.salt + password, BCrypt.gensalt());
+    }
+
+    public boolean checkPassword(String password) {
+        // Combina la sal almacenada con la contraseña proporcionada y verifica el hash
+        String hashedPassword = BCrypt.hashpw(this.salt + password, this.salt);
+        return hashedPassword.equals(this.passwordHash);
+    }
+
+
 }

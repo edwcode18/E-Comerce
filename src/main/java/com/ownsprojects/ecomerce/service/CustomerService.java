@@ -27,6 +27,7 @@ public class CustomerService {
      * @return The saved customer.
      */
     public CustomerEntity saveCustomer(CustomerEntity customer) {
+        customer.setPassword(customer.getPassword());
         return customerRepository.save(customer);
     }
 

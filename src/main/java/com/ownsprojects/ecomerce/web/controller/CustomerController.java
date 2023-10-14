@@ -41,10 +41,12 @@ public class CustomerController {
     @ApiResponses({
             @ApiResponse(code = 201, message = "Customer created"),
             @ApiResponse(code = 500, message = "Internal server error"),
-            @ApiResponse(code = 400, message = "Bad request")
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 401, message = "Bad request")
     })
     @PostMapping
     public ResponseEntity<CustomerEntity> createCustomer(@Valid @RequestBody CustomerEntity customer) {
+        customer.setPassword(customer.getPassword());
         CustomerEntity createdCustomer = customerService.saveCustomer(customer);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
@@ -59,7 +61,8 @@ public class CustomerController {
             @ApiResponse(code = 200, message = "Customers found"),
             @ApiResponse(code = 404, message = "Customers not found"),
             @ApiResponse(code = 500, message = "Internal server error"),
-            @ApiResponse(code = 400, message = "Bad request")
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 401, message = "Bad request")
     })
     @GetMapping
     public ResponseEntity<List<CustomerEntity>> getAllCustomers() {
@@ -78,7 +81,8 @@ public class CustomerController {
             @ApiResponse(code = 200, message = "Customer found"),
             @ApiResponse(code = 404, message = "Customer not found"),
             @ApiResponse(code = 500, message = "Internal server error"),
-            @ApiResponse(code = 400, message = "Bad request")
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 401, message = "Bad request")
     })
     @GetMapping("/{id}")
     public ResponseEntity<CustomerEntity> getCustomer(@PathVariable("id") Long id) {
@@ -97,7 +101,8 @@ public class CustomerController {
             @ApiResponse(code = 204, message = "success operation"),
             @ApiResponse(code = 404, message = "Customer not found"),
             @ApiResponse(code = 500, message = "Internal server error"),
-            @ApiResponse(code = 400, message = "Bad request")
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 401, message = "Bad request")
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable("id") Long id) {
