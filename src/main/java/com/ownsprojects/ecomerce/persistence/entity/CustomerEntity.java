@@ -9,6 +9,8 @@ import javax.validation.constraints.*;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import java.util.Set;
+
 /**
  * Represents a customer entity in the system.
  */
@@ -74,4 +76,10 @@ public class CustomerEntity extends AuditableEntity {
     @Column(name = "shiping_address", length = 60)
     private String shipingAddress;
 
+    /**
+     * Represents the relationship with roles entity.
+     */
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleEntity.class, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "customer_roles", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<RoleEntity> roles;
 }

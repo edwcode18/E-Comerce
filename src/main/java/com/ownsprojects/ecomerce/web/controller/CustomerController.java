@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ import java.util.Optional;
 @RequestMapping("/customers")
 public class CustomerController {
     private final CustomerService customerService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public CustomerController(CustomerService customerService) {
@@ -46,7 +48,7 @@ public class CustomerController {
     })
     @PostMapping
     public ResponseEntity<CustomerEntity> createCustomer(@Valid @RequestBody CustomerEntity customer) {
-        customer.setPassword(customer.getPassword());
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         CustomerEntity createdCustomer = customerService.saveCustomer(customer);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
