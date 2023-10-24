@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
- * Represents a class for managing exceptions in the entities.
+ * A controller advice class for handling exceptions in the application.
  */
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -31,12 +31,26 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return new ResponseEntity<>(errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Handles exceptions of type ExpiredJwtException and returns a JSON response.
+     *
+     * @param ex      The ExpiredJwtException that occurred.
+     * @param request The current web request.
+     * @return A ResponseEntity with a JSON response indicating an expired token.
+     */
     @ExceptionHandler(ExpiredJwtException.class)
     public ResponseEntity<Object> handleExpiredJwtException(ExpiredJwtException ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse("Expired Token", "The provided token has expired");
         return new ResponseEntity<>(errorResponse, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }
 
+    /**
+     * Handles exceptions of type MalformedJwtException and returns a JSON response.
+     *
+     * @param ex      The MalformedJwtException that occurred.
+     * @param request The current web request.
+     * @return A ResponseEntity with a JSON response indicating a malformed token.
+     */
     @ExceptionHandler(MalformedJwtException.class)
     public ResponseEntity<Object> handleMalformedJwtException(MalformedJwtException ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse("Malformed Token", "The provided token is not well-formed");

@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,7 +54,7 @@ public class CustomerController {
             @ApiResponse(code = 401, message = "Bad request")
     })
     @PostMapping
-    public ResponseEntity<CustomerEntity> createCustomer(@Valid @RequestBody CustomerEntity customer) {
+    public ResponseEntity<CustomerEntity> createCustomer(@AuthenticationPrincipal @Valid @RequestBody CustomerEntity customer) {
         Set<RoleEntity> roles = customer.getRolesUser().stream()
                         .map(role -> RoleEntity.builder()
                                 .name(ERole.valueOf(role))
@@ -123,11 +124,4 @@ public class CustomerController {
         customerService.deleteCustomer(id);
         return ResponseEntity.noContent().build();
     }
-
-/*    public static void main(String[] args) {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); // Inicializa un PasswordEncoder, por ejemplo, BCryptPasswordEncoder
-
-        String encodedPassword = passwordEncoder.encode("1234");
-        System.out.println(encodedPassword);
-    }*/
 }

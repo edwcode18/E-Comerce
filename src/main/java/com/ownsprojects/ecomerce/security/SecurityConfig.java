@@ -17,6 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Configuration class for setting up security in the application.
+ */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
@@ -29,6 +32,14 @@ public class SecurityConfig {
     @Autowired
     JwtAuthorizationFilter authorizationFilter;
 
+    /**
+     * Defines the security filter chain for the application.
+     *
+     * @param httpSecurity The HttpSecurity object to configure security settings.
+     * @param authenticationManager The AuthenticationManager for handling authentication.
+     * @return A SecurityFilterChain instance for configuring security filters.
+     * @throws Exception If there is an exception while configuring security.
+     */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationManager authenticationManager) throws Exception {
 
@@ -49,11 +60,24 @@ public class SecurityConfig {
                 .build();
     }
 
+    /**
+     * Provides a PasswordEncoder bean to handle password encoding and verification.
+     *
+     * @return A BCryptPasswordEncoder instance for password encoding.
+     */
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Defines an AuthenticationManager bean for handling user authentication.
+     *
+     * @param httpSecurity The HttpSecurity object to configure authentication settings.
+     * @param passwordEncoder The PasswordEncoder for encoding and verifying passwords.
+     * @return An AuthenticationManager for user authentication.
+     * @throws Exception If there is an exception while configuring authentication.
+     */
     @Bean
     AuthenticationManager authenticationManager(HttpSecurity httpSecurity, PasswordEncoder passwordEncoder) throws Exception {
         return httpSecurity.getSharedObject(AuthenticationManagerBuilder.class)
