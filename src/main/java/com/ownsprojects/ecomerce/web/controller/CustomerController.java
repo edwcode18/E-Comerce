@@ -1,6 +1,8 @@
 package com.ownsprojects.ecomerce.web.controller;
 
 import com.ownsprojects.ecomerce.persistence.entity.CustomerEntity;
+import com.ownsprojects.ecomerce.persistence.entity.ERole;
+import com.ownsprojects.ecomerce.persistence.entity.RoleEntity;
 import com.ownsprojects.ecomerce.service.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Controller for managing customers.
@@ -49,6 +52,9 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<CustomerEntity> createCustomer(@Valid @RequestBody CustomerEntity customer) {
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        customer.setRoles(Set.of(RoleEntity.builder()
+                .name(ERole.valueOf(ERole.USER.name()))
+                .build()));
         CustomerEntity createdCustomer = customerService.saveCustomer(customer);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
