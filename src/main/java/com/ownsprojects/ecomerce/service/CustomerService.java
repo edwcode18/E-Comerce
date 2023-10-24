@@ -35,7 +35,9 @@ public class CustomerService implements UserDetailsService {
      * @return The saved customer.
      */
     public CustomerEntity saveCustomer(CustomerEntity customer) {
-        customer.setPassword(customer.getPassword());
+        if(customerRepository.findByUserName(customer.getUserName()).isPresent()) {
+            throw new IllegalArgumentException("Customer already exists");
+        }
         return customerRepository.save(customer);
     }
 

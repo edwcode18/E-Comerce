@@ -7,8 +7,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
-
 import java.util.Set;
 
 /**
@@ -90,4 +88,10 @@ public class CustomerEntity extends AuditableEntity {
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleEntity.class, cascade = CascadeType.PERSIST)
     @JoinTable(name = "customer_roles", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles;
+
+    /**
+     * Represents the roles as strings.
+     */
+    @Transient
+    private Set<String> rolesUser;
 }

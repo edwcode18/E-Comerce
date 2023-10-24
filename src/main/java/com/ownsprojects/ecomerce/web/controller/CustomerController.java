@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Controller for managing customers.
@@ -29,6 +30,8 @@ import java.util.Set;
 @RequestMapping("/customers")
 public class CustomerController {
     private final CustomerService customerService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -51,10 +54,13 @@ public class CustomerController {
     })
     @PostMapping
     public ResponseEntity<CustomerEntity> createCustomer(@Valid @RequestBody CustomerEntity customer) {
+        Set<RoleEntity> roles = customer.getRolesUser().stream()
+                        .map(role -> RoleEntity.builder()
+                                .name(ERole.valueOf(role))
+                                .build())
+                                .collect(Collectors.toSet());
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        customer.setRoles(Set.of(RoleEntity.builder()
-                .name(ERole.valueOf(ERole.USER.name()))
-                .build()));
+        customer.setRoles(roles);
         CustomerEntity createdCustomer = customerService.saveCustomer(customer);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
@@ -117,4 +123,11 @@ public class CustomerController {
         customerService.deleteCustomer(id);
         return ResponseEntity.noContent().build();
     }
+
+/*    public static void main(String[] args) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); // Inicializa un PasswordEncoder, por ejemplo, BCryptPasswordEncoder
+
+        String encodedPassword = passwordEncoder.encode("1234");
+        System.out.println(encodedPassword);
+    }*/
 }

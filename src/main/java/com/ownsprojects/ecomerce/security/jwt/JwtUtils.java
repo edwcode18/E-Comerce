@@ -1,8 +1,6 @@
 package com.ownsprojects.ecomerce.security.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -52,9 +50,12 @@ public class JwtUtils {
                     .parseClaimsJws(token)
                     .getBody();
             return true;
-        }catch (Exception e){
-            log.error("Invalid token, error: ".concat(e.getMessage()));
-            return false;
+        } catch (ExpiredJwtException e) {
+            throw new IllegalArgumentException("The provided token has expired");
+        } catch (MalformedJwtException e) {
+            throw new IllegalArgumentException("The provided token is not well-formed");
+        } catch (SignatureException e) {
+            throw new  IllegalArgumentException("The provided token is invalid");
         }
     }
 
