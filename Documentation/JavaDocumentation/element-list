@@ -1,0 +1,11 @@
+com.ownsprojects.ecomerce
+com.ownsprojects.ecomerce.persistence.audit
+com.ownsprojects.ecomerce.persistence.entity
+com.ownsprojects.ecomerce.persistence.repository
+com.ownsprojects.ecomerce.security
+com.ownsprojects.ecomerce.security.filters
+com.ownsprojects.ecomerce.security.jwt
+com.ownsprojects.ecomerce.service
+com.ownsprojects.ecomerce.web.config
+com.ownsprojects.ecomerce.web.controller
+com.ownsprojects.ecomerce.web.controller.exceptions

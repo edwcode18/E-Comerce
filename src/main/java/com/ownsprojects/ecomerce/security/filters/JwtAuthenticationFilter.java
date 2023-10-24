@@ -62,7 +62,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
      * @param request The request object that contains the authentication.
      * @param response The response object that contains the authentication.
      * @param chain The chain object that contains the authentication
-     * @param authResult the object returned from the <tt>attemptAuthentication</tt>
+     * @param authResult the object returned from the attemptAuthentication
      * method.
      * @throws IOException if an I/O error occurs.
      * @throws ServletException if an I/O error occurs.

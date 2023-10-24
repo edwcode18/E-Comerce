@@ -50,6 +50,7 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(config -> config.disable())
                 .authorizeHttpRequests(auth -> {
+                    auth.antMatchers(AUTH_WHITELIST).permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> {
@@ -85,4 +86,13 @@ public class SecurityConfig {
                 .passwordEncoder(passwordEncoder)
                 .and().build();
     }
+
+    private static final String[] AUTH_WHITELIST = {
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/v2/api-docs/**",
+            "/webjars/**",
+            "/swagger-resources/**",
+            "/configuration/**",
+    };
 }
