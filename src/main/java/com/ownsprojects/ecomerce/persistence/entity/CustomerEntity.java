@@ -48,6 +48,14 @@ public class CustomerEntity extends AuditableEntity {
     private String lastName;
 
     /**
+     * The name of the customer.
+     */
+    @NotBlank
+    @Size(max = 30)
+    @Column(nullable = false, length = 30, unique = true, name = "user_name")
+    private String userName;
+
+    /**
      * The email of the customer.
      */
     @Email(message = "The email is not valid")

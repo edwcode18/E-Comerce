@@ -70,7 +70,7 @@ public class CustomerService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
 
-        CustomerEntity customer = customerRepository.findByName(name)
+        CustomerEntity customer = customerRepository.findByUserName(name)
                 .orElseThrow(() -> new UsernameNotFoundException("The customer: " + name + " doesn't exist."));
 
         Collection<? extends GrantedAuthority> authorities = customer.getRoles()
@@ -78,7 +78,7 @@ public class CustomerService implements UserDetailsService {
                 .map(role -> new SimpleGrantedAuthority("ROLE_".concat(role.getName().name())))
                 .collect(Collectors.toSet());
 
-        return new User(customer.getEmail(),
+        return new User(customer.getUserName(),
                 customer.getPassword(),
                 true,
                 true,

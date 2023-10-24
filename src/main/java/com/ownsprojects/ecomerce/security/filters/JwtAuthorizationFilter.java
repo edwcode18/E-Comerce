@@ -2,6 +2,7 @@ package com.ownsprojects.ecomerce.security.filters;
 
 import com.ownsprojects.ecomerce.security.jwt.JwtUtils;
 import com.ownsprojects.ecomerce.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,13 +21,11 @@ import java.io.IOException;
  */
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
-    private final JwtUtils jwtUtils;
-    private final CustomerService customerService;
+    @Autowired
+    private JwtUtils jwtUtils;
 
-    public JwtAuthorizationFilter(JwtUtils jwtUtils, CustomerService customerService) {
-        this.jwtUtils = jwtUtils;
-        this.customerService = customerService;
-    }
+    @Autowired
+    private CustomerService customerService;
 
     /**
      * Override this method to provide a filter function that will be used to filter customers.

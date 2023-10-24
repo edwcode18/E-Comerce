@@ -17,5 +17,5 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
      * @param name The name of the customer.
      * @return The customer found.
      */
-    Optional<CustomerEntity> findByName(String name);
+    Optional<CustomerEntity> findByUserName(String name);
 }
